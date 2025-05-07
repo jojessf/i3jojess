@@ -38,7 +38,7 @@ exec $termuwu
 exec --no-startup-id "picom --backend glx"
 
 
-exec --no-startup-id xrandr --output DP-0 -- pos 0x0 && xrandr --output HDMI-1 --right-of DP-0 --pos 1920x0 --primary && xrandr --output HDMI-0 --pos 3840x0
+exec --no-startup-id xrandr --output DP-0 --pos 0x0 && xrandr --output HDMI-1 --right-of DP-0 --pos 1920x0 --primary && xrandr --output HDMI-0 --pos 3840x0
 
 
 
