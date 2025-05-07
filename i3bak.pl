@@ -32,9 +32,11 @@ FI: foreach $_ (@FIs) {
       $fidir =~ s/^$ENV{HOME}\///g;
       $fipath =~ s/^$ENV{HOME}\///g;
    print "FI:" . $fi . "\t". $fipath . "\n";   
-   print "MKDIR ".$opt->{bakroot} . $fidir . "\n";
-   make_path($opt->{bakroot} . $fidir);
-   die if ! -d $opt->{bakroot} . $fidir;
+   if ( -d $fidir ) { 
+      print "MKDIR ".$opt->{bakroot} . $fidir . "\n";
+      make_path($opt->{bakroot} . $fidir);
+      die "$fidir\n" if ! -d $opt->{bakroot} . $fidir;
+   }
    next FI if ! -e $fi;
    $fipath = $fi if length($fipath)==0;
    print "COPY $fipath, ".$opt->{bakroot}.$fipath . "\n";
@@ -43,7 +45,7 @@ FI: foreach $_ (@FIs) {
       print "ERROR, next\n";  
    };
 }
-
+exit;
 chdir($opt->{bakroot}) or die;
 chdir("../") or die;
 system("zip -r ".$opt->{host}.".".$opt->{bakstamp}.".zip ".$opt->{bakroot} );

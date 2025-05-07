@@ -1,0 +1,2 @@
+#!/bin/sh
+maim | xclip -selection clipboard -t image/png; xclip -selection clipboard -o > ~/Pictures/Screenshots/maim.`date "+%Y%m%d.%H%M%S.%N.%s"`.png
