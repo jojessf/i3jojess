@@ -7,7 +7,7 @@ use File::Copy qw(copy move);
 my ($opt, @DARG) = Getopt::Lazier->new(@ARGV);
 
 $opt->{host} //= hostname;
-$opt->{bakroot} //= "/nu/inf/i3/".$opt->{host}."/";
+$opt->{bakroot} //= "/nu/inf/i3/i3jojess/".$opt->{host}."/";
 mkdir ( $opt->{bakroot} ) if ! -d $opt->{bakroot};
 $opt->{indir} //= $ENV{HOME};
 #$opt->{bakfils} //= "\.conf,\.jsonc,\.css,\.xml";
