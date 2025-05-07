@@ -16,7 +16,10 @@ $opt->{bakstamp} //= `date +"%Y%m%d%H%M%S"`;
 chomp($opt->{bakstamp});
 
 chdir($opt->{indir}) or die "no indir " . __LINE__ . "\n";
-FI: while(<*>) {
+my @FIs;
+while (<*>) { push(@FIs, $_) }
+while (<.*>) { push(@FIs, $_) }
+FI: foreach $_ (@FIs) {
    my $skip = 1;
    foreach my $glob (split(",", $opt->{bakfils})) {
       $skip = 0 if m/$glob/;
@@ -28,7 +31,6 @@ FI: while(<*>) {
       $fidir =~ s/^(.*\/).*?$/$1/;
       $fidir =~ s/^$ENV{HOME}\///g;
       $fipath =~ s/^$ENV{HOME}\///g;
-      #next FI if ! -l $_;
    print "FI:" . $fi . "\t". $fipath . "\n";   
    print "MKDIR ".$opt->{bakroot} . $fidir . "\n";
    make_path($opt->{bakroot} . $fidir);
