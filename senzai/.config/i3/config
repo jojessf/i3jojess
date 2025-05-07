@@ -7,7 +7,7 @@
 # ------------------------------------ #
 # * i3lock conf
 #       # sudo systemctl mask sleep.target suspend.target hibernate.target hybrid-sleep.target
-#       # sudo apt install i3 maim xclip blueman playerctl feh rofi xfce4-terminal pavucontrol pasystray
+#       # sudo apt install i3 maim xclip blueman playerctl feh rofi xfce4-terminal pavucontrol pasystray ibus picom 
 # * ~/.config/rofi/config.rasi
 # * ~/.local/share/rofi/themes/jojess.rasi
 # * ~/.i3status.conf
@@ -33,6 +33,10 @@ exec $termuwu
 #exec --no-startup-id xrandr --output DP-0 -- pos 0x0 
 #exec --no-startup-id xrandr --output HDMI-1 --right-of DP-0 --pos 1920x0 --primary
 # exec --no-startup-id xrandr --output HDMI-0 --pos 3840x0
+
+# compositor, for app transparency and shit
+exec --no-startup-id "picom --backend glx"
+
 
 exec --no-startup-id xrandr --output DP-0 -- pos 0x0 && xrandr --output HDMI-1 --right-of DP-0 --pos 1920x0 --primary && xrandr --output HDMI-0 --pos 3840x0
 
@@ -75,6 +79,8 @@ exec --no-startup-id xss-lock --transfer-sleep-lock -- "i3lock -i /jaf/conf/bg/9
 exec --no-startup-id nm-applet
 exec --no-startup-id blueman-applet
 exec --no-startup-id pasystray
+exec --no-startup-id ibus-daemon -d # <<< JP owo
+
 # uwu bluetooth
 
 # Use pactl to adjust volume in PulseAudio.
