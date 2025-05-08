@@ -7,12 +7,15 @@
 # ------------------------------------ #
 # * i3lock conf
 #       # sudo systemctl mask sleep.target suspend.target hibernate.target hybrid-sleep.target
-#       # sudo apt install i3 maim xclip blueman playerctl feh rofi xfce4-terminal pavucontrol pasystray ibus picom 
+#       # sudo apt install i3 maim xclip blueman playerctl feh rofi xfce4-terminal pavucontrol pasystray ibus picom ibus-mozc
 # * ~/.config/rofi/config.rasi
 # * ~/.local/share/rofi/themes/jojess.rasi
 # * ~/.i3status.conf
 # * ~/.config/i3/*
 # ------------------------------------ #
+# xmodmap -pke
+# xmodmap -pm
+
 set $mod Mod4
 set $mod1 Mod1
 set $mod2 Mod2
@@ -43,7 +46,6 @@ exec --no-startup-id xrandr --output DP-0 --pos 0x0 && xrandr --output HDMI-1 --
 
 
 #  exec --no-startup-id nitrogen --set-zoom-fill vertigoaway_-_das_epos_hohlraum.jpg
-exec --no-startup-id feh --bg-scale /jaf/conf/bg/vertigoaway_-_das_epos_hohlraum.jpg
 
 # gay BORDERS
 client.focused          #11aaaa #222222 #ffffff #11aaaa #333333
@@ -55,7 +57,7 @@ default_floating_border  pixel 5
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
-font pango:monospace 8
+font pango:monospace 1b0
 
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
@@ -78,15 +80,16 @@ exec --no-startup-id xss-lock --transfer-sleep-lock -- "i3lock -i /jaf/conf/bg/9
 
 exec --no-startup-id nm-applet
 exec --no-startup-id blueman-applet
-exec --no-startup-id pasystray
-exec --no-startup-id ibus-daemon -d # <<< JP owo
+#exec --no-startup-id pasystray
+exec --no-startup-id ibus-daemon -r -d # <<< JP owo
+exec --no-startup-id "sleep 2 && feh --bg-scale /jaf/conf/bg/vertigoaway_-_das_epos_hohlraum.jpg"
 
 # uwu bluetooth
 
 # Use pactl to adjust volume in PulseAudio.
 set $refresh_i3status killall -SIGUSR1 i3status
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10% && $refresh_i3status
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5% && $refresh_i3status
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5% && $refresh_i3status
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
 bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
 
@@ -167,10 +170,10 @@ bindsym $mod+w layout tabbed
 bindsym $mod+e layout toggle split
 
 # toggle tiling / floating
-bindsym $mod+Shift+space floating toggle
+#bindsym $mod+Shift+space floating toggle
 
 # change focus between tiling / floating windows
-bindsym $mod+space focus mode_toggle
+###bindsym $mod+space focus mode_toggle
 
 # focus the parent container
 bindsym $mod+a focus parent
@@ -293,8 +296,15 @@ bindsym $mod+Shift+s exec ~/.config/i3/scapscap
 bindsym $mod+Print exec ~/.config/i3/scapscap
 bindsym Print exec ~/.config/i3/scap 
 
+# these ...  seem to work for mod1/L_ALT+space, on senzai;  but work as expected on myou?  wtf haha
+bindsym $mod+space exec ~/.config/i3/ibustoggle
+bindsym $mod+$mod1+space exec ~/.config/i3/ibustoggle
+bindsym $mod+$mod2+space exec ~/.config/i3/ibustoggle
+bindsym $mod1+$mod2+space exec ~/.config/i3/ibustoggle
+
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
-        status_command i3status
+        #status_command i3status
+        status_command i3blocks
 }
