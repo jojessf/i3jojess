@@ -1,0 +1,13 @@
+#!/bin/bash
+ibusE="xkb:us::eng"
+ibusJ="mozc-on"
+lang=`ibus engine`
+notime=250
+if [[ $lang = $ibusE ]]; then
+  ibus engine $ibusJ
+  notify-send "[日本語]" -t ${notime} -a "System"
+fi
+if [[ $lang = $ibusJ ]]; then
+  notify-send "[英語]" -t ${notime} -a "System"
+  ibus engine $ibusE  
+fi
