@@ -7,7 +7,7 @@
 # ------------------------------------ #
 # * i3lock conf
 #       # sudo systemctl mask sleep.target suspend.target hibernate.target hybrid-sleep.target
-#       # sudo apt install i3 maim xclip blueman playerctl feh rofi xfce4-terminal pavucontrol pasystray ibus picom ibus-mozc
+#       # sudo apt install i3 maim xclip blueman playerctl feh rofi xfce4-terminal pavucontrol pasystray ibus picom ibus-mozc i3blocks
 # * ~/.config/rofi/config.rasi
 # * ~/.local/share/rofi/themes/jojess.rasi
 # * ~/.i3status.conf
@@ -125,6 +125,7 @@ bindsym $mod+Shift+q kill
 # bindcode $mod+40 exec --no-startup-id i3-dmenu-desktop
 
 # UWU 
+bindsym $mod+w exec rofi -show window
 bindsym $mod+d exec rofi -show run
 # JOJESSCONF: .config/rofi/config.rasi
 #   /usr/share/rofi/themes; ~/.local/share/rofi/themes
@@ -165,8 +166,8 @@ bindsym $mod+v split v
 bindsym $mod+f fullscreen toggle
 
 # change container layout (stacked, tabbed, toggle split)
-bindsym $mod+s layout stacking
-bindsym $mod+w layout tabbed
+# bindsym $mod+s layout stacking
+#bindsym $mod+w layout tabbed
 bindsym $mod+e layout toggle split
 
 # toggle tiling / floating
