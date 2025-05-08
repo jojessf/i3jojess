@@ -6,6 +6,8 @@ use File::Copy qw(copy move);
 
 my ($opt, @DARG) = Getopt::Lazier->new(@ARGV);
 
+die "mount stuff" if ( ! -d "/nu/inf" );
+
 $opt->{host} //= hostname;
 $opt->{bakroot} //= "/nu/inf/i3/i3jojess/".$opt->{host}."/";
 mkdir ( $opt->{bakroot} ) if ! -d $opt->{bakroot};
@@ -45,9 +47,11 @@ FI: foreach $_ (@FIs) {
       print "ERROR, next\n";  
    };
 }
+print "\n" . $opt->{bakroot} . "\n";
 exit;
 chdir($opt->{bakroot}) or die;
 chdir("../") or die;
 system("zip -r ".$opt->{host}.".".$opt->{bakstamp}.".zip ".$opt->{bakroot} );
 mkdir("bak");
 move($opt->{host}.".".$opt->{bakstamp}.".zip", "bak/");
+
