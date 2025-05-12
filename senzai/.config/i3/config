@@ -21,7 +21,6 @@ set $mod1 Mod1
 set $mod2 Mod2
 
 set $termuwu xfce4-terminal
-exec $termuwu
 
 # gay HDMI:
 #exec --no-startup-id xrandr --output HDMI-0 --scale 0.6x0.6
@@ -136,7 +135,7 @@ bindsym $mod+l exec i3lock -i /jaf/conf/bg/9planets.png
 #bindsym $mod+j focus left
 #bindsym $mod+k focus down
 #bindsym $mod+l focus up
-#bindsym $mod+semicolon focus right
+#BINDsym $mod+semicolon focus right
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Left focus left
@@ -297,11 +296,73 @@ bindsym $mod+Shift+s exec ~/.config/i3/scapscap
 bindsym $mod+Print exec ~/.config/i3/scapscap
 bindsym Print exec ~/.config/i3/scap 
 
-# these ...  seem to work for mod1/L_ALT+space, on senzai;  but work as expected on myou?  wtf haha
+# jojess ibus >> these ...  seem to work for mod1/L_ALT+space, on senzai;  but work as expected on myou?  wtf haha >> JP 
 bindsym $mod+space exec ~/.config/i3/ibustoggle
 bindsym $mod+$mod1+space exec ~/.config/i3/ibustoggle
 bindsym $mod+$mod2+space exec ~/.config/i3/ibustoggle
 bindsym $mod1+$mod2+space exec ~/.config/i3/ibustoggle
+
+# < ~ < ~ jojess workspaces ~ > ~ >
+workspace 1 output DP-1 # left
+workspace 9 output DP-1 # left
+workspace 11 output DP-1 # left
+workspace 12 output DP-1 # left
+workspace 2 output HDMI-1 # center
+workspace 3 output HDMI-1 # center
+workspace 4 output HDMI-1 # center
+workspace 5 output HDMI-1 # center
+workspace 6 output HDMI-1 # center
+workspace 7 output HDMI-1 # center
+workspace 8 output HDMI-1 # center
+workspace 10 output HDMI-0 # right 
+workspace 19 output HDMI-0 # right 
+workspace 20 output HDMI-0 # right 
+
+ 
+# L - 1/firefox 
+# workspace 1 output DP-1 # left
+# exec --no-startup-id i3-msg 'workspace $ws1; exec firefox;'
+
+# C - 3/code 
+# 
+# Workspace 3 output HDMI-1 # center
+# Exec --no-startup-id i3-msg 'workspace $ws3; exec code;'
+# 
+# # C - 5/chrome 
+# Workspace 5 output HDMI-1 # center
+# #exec --no-startup-id i3-msg 'workspace $ws5; exec google-chrome;'
+# Exec --no-startup-id i3-msg 'workspace $ws5; exec unimail;'
+# 
+# # C - 2 term
+# Workspace 2 output HDMI-1 # center
+# Exec --no-startup-id i3-msg 'workspace $ws2; exec $termuwu;'
+# 
+# # R - 10 slack 
+# Workspace 10 output HDMI-0 # right
+# Exec --no-startup-id i3-msg 'workspace $ws10; exec slack;'
+# 
+# # R - 20 discord
+# Workspace 20 output HDMI-0 # right
+# Exec --no-startup-id i3-msg 'workspace $ws20; exec discord;'
+# 
+# # R - 19 spotify
+# Workspace 19 output HDMI-0 # right
+# Exec --no-startup-id i3-msg 'workspace $ws19; exec spotify;'
+# 
+
+#exec --no-startup-id i3-msg "workspace $ws2; exec firefox; move container to workspace number $ws1; workspace $ws2"
+#exec --no-startup-id i3-msg "exec slack; move container to workspace number $ws10"
+#workspace 2 output HDMI-1 # center
+#exec --no-startup-id i3-msg "workspace $ws2; exec discord; move container to workspace number $ws20; workspace $ws2"
+assign [class="firefox-esr"] $ws1
+assign [class="Google-chrome"] $ws5
+assign [class="slack"] $ws10
+assign [class="Slack"] $ws10
+assign [class="Spotify"] $ws19
+assign [class="Spotify"] $ws19
+assign [class="discord"] $ws20
+exec --no-startup-id i3-msg 'workspace $ws1; exec firefox; workspace $ws5; exec google-chrome; workspace $ws20; exec discord; workspace $ws10; exec slack; workspace $ws19; exec spotify'
+
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
