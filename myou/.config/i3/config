@@ -17,8 +17,8 @@ set $mod1 Mod1
 set $mod2 Mod2
 
 set $termuwu xfce4-terminal
-set $bguwu /jaf/conf/bg/vertigoaway_-_das_epos_hohlraum.jpg
-
+#set $bguwu /jaf/conf/bg/vertigoaway_-_das_epos_hohlraum.jpg
+set $bguwu /jaf/conf/bg/Hypnagogia-HighRes_1080p.jpg
 # compositor, for app transparency and shit
 exec --no-startup-id "picom --backend glx"
 
@@ -32,7 +32,7 @@ exec --no-startup-id xrandr --output HDMI-0 --mode 1920x1080 --right-of DP-1 --s
 #  exec --no-startup-id nitrogen --set-zoom-fill vertigoaway_-_das_epos_hohlraum.jpg
 #exec --no-startup-id feh --bg-scale /jaf/conf/bg/vertigoaway_-_das_epos_hohlraum.jpg
 
-exec --no-startup-id feh --bg-scale $bguwu
+exec --no-startup-id sleep 2 && feh --bg-scale $bguwu
 exec $termuwu
 
 # gay BORDERS
@@ -99,6 +99,7 @@ bindsym $mod+Shift+q kill
 # bindcode $mod+40 exec --no-startup-id i3-dmenu-desktop
 
 # UWU 
+bindsym $mod+w exec rofi -show window
 bindsym $mod+d exec rofi -show run
 # JOJESSCONF: .config/rofi/config.rasi
 #   /usr/share/rofi/themes; ~/.local/share/rofi/themes
@@ -140,7 +141,7 @@ bindsym $mod+f fullscreen toggle
 
 # change container layout (stacked, tabbed, toggle split)
 bindsym $mod+s layout stacking
-bindsym $mod+w layout tabbed
+#bindsym $mod+w layout tabbed
 bindsym $mod+e layout toggle split
 
 # toggle tiling / floating
