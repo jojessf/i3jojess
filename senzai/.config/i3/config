@@ -46,13 +46,26 @@ exec --no-startup-id xrandr --output DP-0 --pos 0x0 && xrandr --output HDMI-1 --
 
 #  exec --no-startup-id nitrogen --set-zoom-fill vertigoaway_-_das_epos_hohlraum.jpg
 
-# gay BORDERS
-client.focused          #11aaaa #222222 #ffffff #11aaaa #333333
-client.focused_inactive #114444 #222222 #ffffff #111111 #333333
-client.unfocused        #113333 #222222 #ffffff #111111 #333333
-default_border		    pixel 1 
-default_floating_border  pixel 5
-# for_window [instance = "__focused__"] border pixel 1
+
+# gay BORDERS --------------------------------------------------------------- #
+###default_border normal|none|pixel
+hide_edge_borders none
+# --------------------------------------------------------------------------- #
+#client.focused          #11aaaa #222222 #ffffff #11aaaa #333333
+#client.focused_inactive #114444 #222222 #ffffff #111111 #333333
+#client.unfocused        #113333 #222222 #ffffff #111111 #333333
+client.focused           #02bdfcee #000000 #000000 #02bdfcee #02bdfcee
+client.focused_inactive  #02bdfcee #111111 #111111 #02bdfcee #02bdfcee
+client.unfocused         #02bdfc66 #111111 #111111 #02bdfc66 #02bdfc66
+# --------------------------------------------------------------------------- #
+default_border              pixel 1
+default_floating_border  pixel 15
+for_window [instance = "__focused__"] border pixel 2
+###gaps outer|horizontal|vertical|top|left|bottom|right <gap_size>[px]
+gaps inner 2
+gaps outer 3
+# --------------------------------------------------------------------------- #
+
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
