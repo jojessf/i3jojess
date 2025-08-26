@@ -37,7 +37,7 @@ set $termuwu xfce4-terminal
 # exec --no-startup-id xrandr --output HDMI-0 --pos 3840x0
 
 # compositor, for app transparency and shit
-exec --no-startup-id "picom --backend glx --corner-radius=5"
+exec --no-startup-id "picom --backend glx --corner-radius=5 --vsync"
 
 
 exec --no-startup-id xrandr --output DP-0 --pos 0x0 && xrandr --output HDMI-1 --right-of DP-0 --pos 1920x0 --primary && xrandr --output HDMI-0 --pos 3840x0
@@ -180,6 +180,7 @@ bindsym $mod+f fullscreen toggle
 # change container layout (stacked, tabbed, toggle split)
 # bindsym $mod+s layout stacking
 #bindsym $mod+w layout tabbed
+bindsym $mod+t layout toggle tabbed
 bindsym $mod+e layout toggle split
 
 # toggle tiling / floating
