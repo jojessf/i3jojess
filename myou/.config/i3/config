@@ -20,7 +20,7 @@ set $termuwu xfce4-terminal
 #set $bguwu /jaf/conf/bg/vertigoaway_-_das_epos_hohlraum.jpg
 set $bguwu /jaf/conf/bg/Hypnagogia-HighRes_1080p.jpg
 # compositor, for app transparency and shit
-exec --no-startup-id "picom --backend glx --vsync"
+exec --no-startup-id "picom --backend glx --vsync --corner-radius 5"
 
 # eepy
 exec_always --no-startup-id xset dpms 0 0 7200 &
@@ -33,7 +33,6 @@ exec --no-startup-id xrandr --output HDMI-0 --mode 1920x1080 --right-of DP-1 --p
 #exec --no-startup-id feh --bg-scale /jaf/conf/bg/vertigoaway_-_das_epos_hohlraum.jpg
 
 exec --no-startup-id sleep 2 && feh --bg-scale $bguwu
-exec $termuwu
 
 # gay BORDERS --------------------------------------------------------------- #
 ###default_border normal|none|pixel
@@ -288,3 +287,4 @@ bar {
         #status_command i3status
         status_command i3blocks
 }
+
