@@ -17,8 +17,9 @@ set $mod Mod4
 set $mod1 Mod1
 set $mod2 Mod2
 
+set $termowo xfce4-terminal -x /jaf/com/tm
 set $termuwu xfce4-terminal
-exec $termuwu
+exec $termowo
 
 # gay HDMI:
 #exec --no-startup-id xrandr --output HDMI-0 --scale 0.6x0.6
@@ -87,7 +88,7 @@ exec --no-startup-id xss-lock --transfer-sleep-lock -- "i3lock -i /jaf/conf/bg/9
 exec --no-startup-id nm-applet
 exec --no-startup-id blueman-applet
 #exec --no-startup-id pasystray
-exec --no-startup-id picom --backend xrender
+exec --no-startup-id picom --backend xrender --vsync
 # uwu bluetooth
 
 # Use pactl to adjust volume in PulseAudio.
@@ -114,6 +115,7 @@ tiling_drag modifier titlebar
 
 # start a terminal
 #bindsym $mod+Return exec i3-sensible-terminal
+bindsym $mod+Shift+Return exec $termowo
 bindsym $mod+Return exec $termuwu
 bindsym $mod+F9 exec $termuwu
 
@@ -131,6 +133,7 @@ bindsym $mod+Shift+q kill
 
 # UWU 
 bindsym $mod+d exec rofi -show run
+bindsym $mod+w exec rofi -show window
 # JOJESSCONF: .config/rofi/config.rasi
 #   /usr/share/rofi/themes; ~/.local/share/rofi/themes
 #   rofi-theme-selector
@@ -210,6 +213,29 @@ set $ws17 "17"
 set $ws18 "18"
 set $ws19 "19"
 set $ws20 "20"
+
+
+set $tws1  "t1"
+set $tws2  "t2"
+set $tws3  "t3"
+set $tws4  "t4"
+set $tws5  "t5"
+set $tws6  "t6"
+set $tws7  "t7"
+set $tws8  "t8"
+set $tws9  "t9"
+set $tws10 "t10"
+set $tws11 "t11"
+set $tws12 "t12"
+set $tws13 "t13"
+set $tws14 "t14"
+set $tws15 "t15"
+set $tws16 "t16"
+set $tws17 "t17"
+set $tws18 "t18"
+set $tws19 "t19"
+set $tws20 "t20"
+set $tws20 "t21"
 
 # switch to workspace
 bindsym $mod+1 workspace number $ws1
