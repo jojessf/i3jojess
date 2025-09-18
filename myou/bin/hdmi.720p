@@ -1,0 +1,16 @@
+#!/usr/bin/perl
+use Getopt::Lazier;
+my ($opt, @DARG) = Getopt::Lazier->new(@ARGV);
+$opt->{r} //= "1280x720";
+$opt->{d} //= "HDMI-1";
+$opt->{c} //= "xrandr --output ".$opt->{d}." --mode ".$opt->{r};
+$opt->{v} //= $ENV{DEBUG};
+$opt->{v} //= 0;
+$opt->{postcom} //= "xrandr --output eDP-1 --primary";
+
+$opt->{exec} //= 1;
+print $opt->{c} if ! $opt->{exec};
+print $opt->{c} if $opt->{v};
+system($opt->{c}) if $opt->{exec};
+system($opt->{postcom}) if $opt->{postcom} and $opt->{exec};
+

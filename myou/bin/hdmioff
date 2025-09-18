@@ -1,0 +1,24 @@
+#!/usr/bin/perl
+use Getopt::Lazier;
+my ($opt, @DARG) = Getopt::Lazier->new(@ARGV);
+$opt->{r} //= "1920x1080";
+$opt->{d} //= "HDMI-1";
+$opt->{c} //= "xrandr --output ".$opt->{d} . " ";
+$opt->{pos} //= "--right-of eDP-1";
+$opt->{pos}   = "--right-of eDP-1" if $opt->{pos}==1;
+$opt->{pos}   = "--left-of eDP-1" if $opt->{pos}=~ /^(2|l|left)$/i;
+$opt->{c}  .= $opt->{pos} . " " if $opt->{pos};
+$opt->{c}  .= "--mode ".$opt->{r};
+$opt->{v} //= $ENV{DEBUG};
+$opt->{v} //= 0;
+$opt->{postcom} //= "xrandr --output eDP-1 --primary";
+$opt->{offcom}  //= "xrandr --output " . $opt->{d} . " --off";
+$opt->{off} //= 1;
+$opt->{c} = $opt->{offcom} if $opt->{off};
+
+$opt->{exec} //= 1;
+print $opt->{c} . "\n" if ! $opt->{exec};
+print $opt->{c} . "\n" if $opt->{v};
+system($opt->{c}) if $opt->{exec};
+system($opt->{postcom}) if $opt->{postcom} and $opt->{exec};
+
