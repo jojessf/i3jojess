@@ -1,2 +1,3 @@
 #!/bin/sh
-cat ~/.config/i3/config | egrep feh | egrep '^#' -v | sed -e 's/.*\&\&//g' | bash
+BGUWU=`cat i3.config | egrep set..bguwu | egrep '^#' -v | sed -e  's/.*bguwu //'`
+cat ~/.config/i3/config | egrep feh | egrep '^#' -v | sed -e 's/.*\&\&//g' | sed -e "s@\$bguwu@${BGUWU}@" | bash
