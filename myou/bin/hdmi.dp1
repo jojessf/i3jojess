@@ -1,0 +1,18 @@
+#!/usr/bin/perl
+use strict;
+use Getopt::Lazier;
+my ($opt, @DARG) = Getopt::Lazier->new(@ARGV);
+$opt->{exec} //= 1;
+my $hostname = `hostname`;
+chomp($hostname);
+if ( $hostname =~ /myou/ ) {
+   my $COM = "xrandr --output DP-1 --mode 1920x1080 --left-of HDMI-0 --primary";
+   if ($opt->{off}) { 
+      $COM = "xrandr --output DP-1 --off";
+   }
+   print "[EXEC]" . $COM ."\n" if $opt->{v};
+   if ( $opt->{exec} ) {
+      system($COM) if ! $opt->{v};
+      print `$COM` if $opt->{v};
+   }
+}
