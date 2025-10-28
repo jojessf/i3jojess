@@ -26,8 +26,9 @@ exec --no-startup-id "picom --backend glx --vsync --corner-radius 5"
 exec_always --no-startup-id xset dpms 0 0 7200 &
 exec_always --no-startup-id xset s off &
 
-exec --no-startup-id xrandr --output DP-1 --mode 1920x1080
-exec --no-startup-id xrandr --output HDMI-0 --mode 1920x1080 --right-of DP-1 --primary --scale 1x1
+exec --no-startup-id sleep 1 && xrandr --output eDP-1 --off
+exec --no-startup-id sleep 2 && xrandr --output DP-1-1 --mode 1920x1080
+exec --no-startup-id sleep 3 && xrandr --output HDMI-1-0 --mode 1920x1080 --right-of DP-1-1 --primary --scale 1x1
 
 #  exec --no-startup-id nitrogen --set-zoom-fill vertigoaway_-_das_epos_hohlraum.jpg
 #exec --no-startup-id feh --bg-scale /jaf/conf/bg/vertigoaway_-_das_epos_hohlraum.jpg
@@ -66,6 +67,8 @@ exec --no-startup-id nm-applet
 exec --no-startup-id blueman-applet
 exec --no-startup-id ibus-daemon -d # <<< JP owo
 exec --no-startup-id dunst # notify
+
+exec --no-startup-id sleep 5 && /home/jojess/bin/i3.rebg 
 
 
 # uwu bluetooth

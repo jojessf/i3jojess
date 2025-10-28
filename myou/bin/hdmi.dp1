@@ -5,10 +5,14 @@ my ($opt, @DARG) = Getopt::Lazier->new(@ARGV);
 $opt->{exec} //= 1;
 my $hostname = `hostname`;
 chomp($hostname);
+
+$opt->{dp} //= "DP-1-1";
+$opt->{hdmi} //= "HDMI-1-0";
+
 if ( $hostname =~ /myou/ ) {
-   my $COM = "xrandr --output DP-1 --mode 1920x1080 --left-of HDMI-0 --primary";
+   my $COM = "xrandr --output ".$opt->{dp}." --mode 1920x1080 --left-of ".$opt->{hdmi}." --primary";
    if ($opt->{off}) { 
-      $COM = "xrandr --output DP-1 --off";
+      $COM = "xrandr --output ".$opt->{dp}." --off";
    }
    print "[EXEC]" . $COM ."\n" if $opt->{v};
    if ( $opt->{exec} ) {
