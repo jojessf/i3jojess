@@ -7,7 +7,9 @@
 # ------------------------------------ #
 # * i3lock conf
 #       # sudo systemctl mask sleep.target suspend.target hibernate.target hybrid-sleep.target
-#       # sudo apt install i3 maim xclip blueman playerctl feh rofi xfce4-terminal pavucontrol pasystray picom
+#       # sudo apt install i3 maim xclip blueman playerctl feh rofi xfce4-terminal pavucontrol pasystray picom brightnessctl fonts-font-awesome
+#       # sudo apt install tmux aptitude cpanminus
+#       # sudo cpanm Getopt::Lazier
 # * ~/.config/rofi/config.rasi
 # * ~/.local/share/rofi/themes/jojess.rasi
 # * ~/.i3status.conf
