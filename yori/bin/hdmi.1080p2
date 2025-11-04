@@ -2,14 +2,11 @@
 use Getopt::Lazier;
 my ($opt, @DARG) = Getopt::Lazier->new(@ARGV);
 $opt->{r} //= "1920x1080";
-$opt->{d} //= "HDMI-1";
+$opt->{d} //= "DP-2";
 $opt->{c} //= "xrandr --output ".$opt->{d} . " ";
-$opt->{pos} //= 3;
-$opt->{pos} //= "--right-of eDP-1";
-$opt->{pos}   = "--right-of eDP-1" if $opt->{pos}==1;
+$opt->{pos} //= "--right-of HDMI-1";
+$opt->{pos}   = "--right-of HDMI-1" if $opt->{pos}==1;
 $opt->{pos}   = "--left-of eDP-1" if $opt->{pos}=~ /^(2|l|left)$/i;
-$opt->{pos}   = "--above eDP-1" if $opt->{pos}==3;
-$opt->{pos}   = "--below eDP-1" if $opt->{pos}==4;
 $opt->{c}  .= $opt->{pos} . " " if $opt->{pos};
 $opt->{c}  .= "--mode ".$opt->{r};
 $opt->{v} //= $ENV{DEBUG};

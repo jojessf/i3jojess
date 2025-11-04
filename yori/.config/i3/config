@@ -8,8 +8,12 @@
 # * i3lock conf
 #       # sudo systemctl mask sleep.target suspend.target hibernate.target hybrid-sleep.target
 #       # sudo apt install i3 maim xclip blueman playerctl feh rofi xfce4-terminal pavucontrol pasystray picom brightnessctl fonts-font-awesome
-#       # sudo apt install tmux aptitude cpanminus
+#       # sudo apt install tmux aptitude cpanminus btop nm-:q
+#       # sudo apt install ibus ibus-mozc i3blocks  
 #       # sudo cpanm Getopt::Lazier
+# ------------------------------------ #
+# # JP # use ibus-setup, set to ctrl+alt+space to toggle input modes, add mozc:あ, etc
+# ------------------------------------ #
 # * ~/.config/rofi/config.rasi
 # * ~/.local/share/rofi/themes/jojess.rasi
 # * ~/.i3status.conf
@@ -81,7 +85,8 @@ exec --no-startup-id dex --autostart --environment i3
 
 # xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
 # screen before suspend. Use loginctl lock-session to lock your screen.
-exec --no-startup-id xss-lock --transfer-sleep-lock -- "i3lock -i /jaf/conf/bg/9planets.png" --nofork
+exec_always --no-startup-id xset dpms 0 0 7200 &
+exec_always --no-startup-id xss-lock --transfer-sleep-lock -- "i3lock -i /jaf/conf/bg/vertigoaway_-_das_epos_hohlraum__1200Ycrop_awawa.png" --nofork
 
 
 # NetworkManager is the most popular way to manage wireless networks on Linux,
@@ -92,7 +97,7 @@ exec --no-startup-id blueman-applet
 #exec --no-startup-id pasystray
 exec --no-startup-id picom --backend xrender --vsync
 # uwu bluetooth
-
+exec --no-startup-id ibus-daemon -d # <<< JP owo
 # Use pactl to adjust volume in PulseAudio.
 set $refresh_i3status killall -SIGUSR1 i3status
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5% && $refresh_i3status
@@ -325,9 +330,9 @@ bindsym $mod+r mode "resize"
 # bindsym Print exec scapscap
 # maim -s | xclip -selection clipboard -t image/png; xclip -selection clipboard -o > ~/Pictures/maim.`date "+%Y%m%d.%H%M%S.%N.%s"`.png
 
-bindsym $mod+Shift+s exec ~/.config/i3/scapscap
-bindsym $mod+Print exec ~/.config/i3/scapscap
-bindsym Print exec ~/.config/i3/scap 
+bindsym $mod+Shift+s exec ~/bin/scapscap
+bindsym $mod+Print exec ~/bin/scapscap
+bindsym Print exec ~/bin/scap 
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
