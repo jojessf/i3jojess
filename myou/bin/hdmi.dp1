@@ -10,7 +10,7 @@ $opt->{dp} //= "DP-1-1";
 $opt->{hdmi} //= "HDMI-1-0";
 
 if ( $hostname =~ /myou/ ) {
-   my $COM = "xrandr --output ".$opt->{dp}." --mode 1920x1080 --left-of ".$opt->{hdmi}." --primary";
+   my $COM = "xrandr --output ".$opt->{dp}." --mode 1920x1080 --right-of ".$opt->{hdmi}." --primary";
    if ($opt->{off}) { 
       $COM = "xrandr --output ".$opt->{dp}." --off";
    }

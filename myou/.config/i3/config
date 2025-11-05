@@ -27,13 +27,12 @@ exec_always --no-startup-id xset dpms 0 0 7200 &
 exec_always --no-startup-id xset s off &
 
 exec --no-startup-id sleep 1 && xrandr --output eDP-1 --off
-exec --no-startup-id sleep 2 && xrandr --output DP-1-1 --mode 1920x1080
-exec --no-startup-id sleep 3 && xrandr --output HDMI-1-0 --mode 1920x1080 --right-of DP-1-1 --primary --scale 1x1
-
+exec --no-startup-id sleep 3 && xrandr --output HDMI-1-0 --mode 1920x1080 
+exec --no-startup-id sleep 5 && xrandr --output DP-1-1 --mode 1920x1080 --right-of HDMI-1-0 --primary --scale 1x1
 #  exec --no-startup-id nitrogen --set-zoom-fill vertigoaway_-_das_epos_hohlraum.jpg
 #exec --no-startup-id feh --bg-scale /jaf/conf/bg/vertigoaway_-_das_epos_hohlraum.jpg
 
-exec --no-startup-id sleep 2 && feh --bg-scale $bguwu
+exec --no-startup-id sleep 7 && feh --bg-scale $bguwu
 
 # gay BORDERS --------------------------------------------------------------- #
 ###default_border normal|none|pixel
