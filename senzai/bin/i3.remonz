@@ -1,0 +1,3 @@
+#!/bin/bash
+cat ~/.config/i3/config | egrep xrandr | egrep '^#' -v | sed -e 's/.*\&\&//g'
+cat ~/.config/i3/config | egrep xrandr | egrep '^#' -v | sed -e 's/.*\&\&//g' | bash

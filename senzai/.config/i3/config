@@ -21,6 +21,7 @@ set $mod1 Mod1
 set $mod2 Mod2
 
 set $termuwu xfce4-terminal
+set $bguwu /jaf/conf/bg/vertigoaway_-_das_epos_hohlraum.jpg
 
 # gay HDMI:
 #exec --no-startup-id xrandr --output HDMI-0 --scale 0.6x0.6
@@ -40,9 +41,14 @@ set $termuwu xfce4-terminal
 exec --no-startup-id "picom --backend glx --corner-radius=5 --vsync"
 
 
-exec --no-startup-id xrandr --output DP-0 --pos 0x0 && xrandr --output HDMI-1 --right-of DP-0 --pos 1920x0 --primary && xrandr --output HDMI-0 --pos 3840x0
+# office:
+#exec --no-startup-id xrandr --output DP-0 --pos 0x0 && xrandr --output HDMI-1 --right-of DP-0 --pos 1920x0 --primary && xrandr --output HDMI-0 --pos 3840x0
+# living room:
+exec --no-startup-id  sleep 1 && xrandr --output HDMI-1 --mode 1920x1080 --right-of HDMI-0 --primary
+#exec --no-startup-id  sleep 2 && xrandr --output HDMI-0 --mode 1920x1080 --left-of HDMI-1 
+exec --no-startup-id  sleep 2 && xrandr --output HDMI-0 --off
 
-
+exec --no-startup-id  sleep 3 && ~/bin/pipewire.restart
 
 #  exec --no-startup-id nitrogen --set-zoom-fill vertigoaway_-_das_epos_hohlraum.jpg
 
@@ -77,13 +83,15 @@ font pango:monospace 1b0
 
 # Start XDG autostart .desktop files using dex. See also
 # https://wiki.archlinux.org/index.php/XDG_Autostart
-exec --no-startup-id dex --autostart --environment i3
+# see $XDG_CONFIG_HOME/autostart, $XDG_CONFIG_DIRS/autostart, /etc/xdg/autostart
+# exec --no-startup-id dex --autostart --environment i3
 
 # The combination of xss-lock, nm-applet and pactl is a popular choice, so
 # they are included here as an example. Modify as you see fit.
 
 # xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
 # screen before suspend. Use loginctl lock-session to lock your screen.
+exec --no-startup-id xset dpms 0 0 0 --nofork
 exec --no-startup-id xss-lock --transfer-sleep-lock -- "i3lock -i /jaf/conf/bg/9planets.png" --nofork
 
 
@@ -94,7 +102,7 @@ exec --no-startup-id nm-applet
 exec --no-startup-id blueman-applet
 #exec --no-startup-id pasystray
 exec --no-startup-id ibus-daemon -r -d # <<< JP owo
-exec --no-startup-id "sleep 2 && feh --bg-scale /jaf/conf/bg/vertigoaway_-_das_epos_hohlraum.jpg"
+exec --no-startup-id sleep 2 && feh --bg-scale $bguwu
 
 # uwu bluetooth
 
@@ -137,8 +145,8 @@ bindsym $mod+Shift+q kill
 # bindcode $mod+40 exec --no-startup-id i3-dmenu-desktop
 
 # UWU 
-bindsym $mod+w exec rofi -show window
-bindsym $mod+d exec rofi -show run
+bindsym $mod+w exec rofi --run-list-command ". ~/.bashrc" -run-command "/bin/bash -i -c '{cmd}'" -display-run "uwu" -display-window "owo" -show window -display-ssh "^w^"
+bindsym $mod+d exec rofi --run-list-command ". ~/.bashrc" -run-command "/bin/bash -i -c '{cmd}'" -show run -display-run "uwu" -display-window "owo" -display-drun ">w<" -display-ssh "^w^"
 # JOJESSCONF: .config/rofi/config.rasi
 #   /usr/share/rofi/themes; ~/.local/share/rofi/themes
 #   rofi-theme-selector
@@ -306,31 +314,31 @@ bindsym $mod+r mode "resize"
 # bindsym Print exec scapscap
 # maim -s | xclip -selection clipboard -t image/png; xclip -selection clipboard -o > ~/Pictures/maim.`date "+%Y%m%d.%H%M%S.%N.%s"`.png
 
-bindsym $mod+Shift+s exec ~/.config/i3/scapscap
-bindsym $mod+Print exec ~/.config/i3/scapscap
-bindsym Print exec ~/.config/i3/scap 
+bindsym $mod+Shift+s exec ~/bin/scapscap
+bindsym $mod+Print exec ~/bin/scapscap
+bindsym Print exec ~/bin/scap 
 
 # jojess ibus >> these ...  seem to work for mod1/L_ALT+space, on senzai;  but work as expected on myou?  wtf haha >> JP 
-bindsym $mod+space exec ~/.config/i3/ibustoggle
-bindsym $mod+$mod1+space exec ~/.config/i3/ibustoggle
-bindsym $mod+$mod2+space exec ~/.config/i3/ibustoggle
-bindsym $mod1+$mod2+space exec ~/.config/i3/ibustoggle
+bindsym $mod+space exec ~/bin/ibustoggle
+bindsym $mod+$mod1+space exec ~/bin/ibustoggle
+bindsym $mod+$mod2+space exec ~/bin/ibustoggle
+bindsym $mod1+$mod2+space exec ~/bin/ibustoggle
 
 # < ~ < ~ jojess workspaces ~ > ~ >
-workspace 1 output DP-1 # left
-workspace 9 output DP-1 # left
-workspace 11 output DP-1 # left
-workspace 12 output DP-1 # left
-workspace 2 output HDMI-1 # center
-workspace 3 output HDMI-1 # center
-workspace 4 output HDMI-1 # center
-workspace 5 output HDMI-1 # center
-workspace 6 output HDMI-1 # center
-workspace 7 output HDMI-1 # center
-workspace 8 output HDMI-1 # center
-workspace 10 output HDMI-0 # right 
-workspace 19 output HDMI-0 # right 
-workspace 20 output HDMI-0 # right 
+# workspace 1 output DP-1 # left
+# workspace 9 output DP-1 # left
+# workspace 11 output DP-1 # left
+# workspace 12 output DP-1 # left
+# workspace 2 output HDMI-1 # center
+# workspace 3 output HDMI-1 # center
+# workspace 4 output HDMI-1 # center
+# workspace 5 output HDMI-1 # center
+# workspace 6 output HDMI-1 # center
+# workspace 7 output HDMI-1 # center
+# workspace 8 output HDMI-1 # center
+# workspace 10 output HDMI-0 # right 
+# workspace 19 output HDMI-0 # right 
+# workspace 20 output HDMI-0 # right 
 
  
 # L - 1/firefox 
@@ -375,7 +383,9 @@ assign [class="Slack"] $ws10
 assign [class="Spotify"] $ws19
 assign [class="Spotify"] $ws19
 assign [class="discord"] $ws20
-exec --no-startup-id i3-msg 'workspace $ws1; exec firefox; workspace $ws5; exec google-chrome; workspace $ws20; exec echo "discord"; workspace $ws10; exec echo "slack"; workspace $ws19; exec spotify'
+#exec --no-startup-id i3-msg 'workspace $ws1; exec firefox; workspace $ws5; exec google-chrome; workspace $ws20; exec echo "discord"; workspace $ws10; exec echo "slack"; workspace $ws19; exec spotify'
+#exec --no-startup-id i3-msg 'workspace $ws1; exec firefox; workspace $ws20; exec discord; workspace $ws19; exec spotify; workspace $ws2 exec xfce4-terminal -x /jaf/com/tm'
+exec --no-startup-id i3-msg 'workspace $ws1; exec firefox; workspace $ws19; exec spotify; workspace $ws2 exec xfce4-terminal -x /jaf/com/tm'
 
 
 # Start i3bar to display a workspace bar (plus the system information i3status
