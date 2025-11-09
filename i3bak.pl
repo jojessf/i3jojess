@@ -15,7 +15,7 @@ mkdir ( $opt->{bakroot} ) if ! -d $opt->{bakroot};
 mkdir ( $opt->{bakroot}."bin" ) if ! -d $opt->{bakroot}."bin";
 $opt->{indir} //= $ENV{HOME};
 #$opt->{bakfils} //= "\.conf,\.jsonc,\.css,\.xml";
-$opt->{bakfils} //= "i3|hdmi"; # if $ENV{DEBUG};";
+$opt->{bakfils} //= "i3|hdmi|pipewire"; # if $ENV{DEBUG};";
 $opt->{bakstamp} //= `date +"%Y%m%d%H%M%S"`;
 chomp($opt->{bakstamp});
 
