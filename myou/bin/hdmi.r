@@ -1,0 +1,35 @@
+#!/usr/bin/perl
+use Data::Dumper;
+use Getopt::Lazier;
+my ($opt, @DARG) = Getopt::Lazier->new(@ARGV);
+my $hostname = `hostname`;
+chomp($hostname);
+$opt->{primary} //= 0;
+$opt->{hostname} //= $hostname;
+$opt->{r} //= "1920x1080";
+$opt->{dol} //= "DP-2" if $hostname =~ /myou/;
+$opt->{doc} //= "HDMI-1-0" if $hostname =~ /myou/;
+$opt->{dor} //= "DP-1-1" if $hostname =~ /myou/;
+$opt->{d}   //= $opt->{dor} if $hostname =~ /myou/;
+$opt->{do}  //= $opt->{doc} if $hostname =~ /myou/;
+$opt->{c} //= "xrandr --output ".$opt->{d} . " ";
+$opt->{pos} //= "right" if $hostname =~ /myou/;
+$opt->{pos}   = "--right-of ".$opt->{do} if $opt->{pos}=~ /^(1|r|right)$/i;
+$opt->{pos}   = "--left-of ".$opt->{do} if $opt->{pos}=~ /^(2|l|left)$/i;
+$opt->{c}  .= $opt->{pos} . " " if $opt->{pos};
+$opt->{c}  .= "--mode ".$opt->{r};
+$opt->{v} //= $ENV{DEBUG};
+$opt->{v} //= 0;
+$opt->{postcom}  //= "xrandr --output " . $opt->{d} ." --primary" if $opt->{primary};
+$opt->{postcom2} //= $ENV{HOME}."/bin/i3.rebg";
+$opt->{offcom}  //= "xrandr --output " . $opt->{d} . " --off";
+$opt->{off} //= 0;
+$opt->{c} = $opt->{offcom} if $opt->{off};
+
+$opt->{exec} //= 1;
+print Dumper([ $opt ]) . "\n" if $opt->{v} and $opt->{v} >= 1;
+print $opt->{c} . "\n" if ! $opt->{exec};
+print $opt->{c} . "\n" if $opt->{v};
+system($opt->{c}) if $opt->{exec};
+system($opt->{postcom}) if $opt->{postcom} and $opt->{exec};
+system($opt->{postcom2}) if $opt->{postcom2} and $opt->{exec};
