@@ -6,12 +6,16 @@ my ($opt,@DARG) = Getopt::Lazier->new(@ARGV);
 
 # requires workspaces t1-t21 be defined alongside ws 1-20 in i3.config~
 
-$opt->{d}    //= "eDP-1"; # target monitor
-$opt->{d}      =~ s/^(0|e|d|edp|edp-1)$/eDP-1/i;  # presets for monitors
-$opt->{d}      =~ s/^(1|h|hdmi)$/HDMI-1/i;
+$opt->{d}    //= "HDMI-1"; # target monitor
 
-$opt->{othermon} = "HDMI-1" if $opt->{d} =~ /eDP-1/;
-$opt->{othermon} = "eDP-1" if $opt->{d} =~ /HDMI-1/;
+my ($dol, $doc, $dor) = ("DP-2", "HDMI-1-0", "DP-1-1");
+
+$opt->{d}      =~ s/^(0|l)$/$dol/i;  # presets for monitors
+$opt->{d}      =~ s/^(1|c)$/$doc/i;
+$opt->{d}      =~ s/^(2|r)$/$dor/i;
+
+$opt->{othermon} = $dor if $opt->{d} !~ /$dor/;
+$opt->{othermon} = $dol if $opt->{d} =~ /$dor/;
 
 $opt->{r}    //= "1-20";  # workspaces to move;  e.g.: -r=1,5,7-10 # defaults to 1 through 20
 $opt->{tempmode} //= 1;
