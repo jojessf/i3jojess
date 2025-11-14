@@ -27,9 +27,10 @@ exec_always --no-startup-id xset dpms 0 0 7200 &
 exec_always --no-startup-id xset s off &
 
 exec --no-startup-id sleep 1 && xrandr --output eDP-1 --off
-exec --no-startup-id sleep 3 && xrandr --output HDMI-1-0 --mode 1920x1080 
-exec --no-startup-id sleep 5 && xrandr --output DP-1-1 --mode 1920x1080 --right-of HDMI-1-0 --primary --scale 1x1
-#  exec --no-startup-id nitrogen --set-zoom-fill vertigoaway_-_das_epos_hohlraum.jpg
+exec --no-startup-id sleep 3 && xrandr --output HDMI-1-0 --mode 1920x1080 --primary 
+exec --no-startup-id sleep 4 && xrandr --output DP-1-1 --mode 1920x1080 --right-of HDMI-1-0
+exec --no-startup-id sleep 5 && xrandr --output DP-2 --mode 1920x1080 --left-of HDMI-1-0
+exec --no-startup-id sleep 6 && xrandr --output HDMI-1-0 --primary 
 #exec --no-startup-id feh --bg-scale /jaf/conf/bg/vertigoaway_-_das_epos_hohlraum.jpg
 
 exec --no-startup-id sleep 7 && feh --bg-scale $bguwu
@@ -111,12 +112,16 @@ bindsym $mod+Shift+q kill
 # bindcode $mod+40 exec --no-startup-id i3-dmenu-desktop
 
 # UWU 
-bindsym $mod+w exec rofi -show window
-bindsym $mod+d exec rofi -show run
+#bindsym $mod+w exec rofi -show window
+#bindsym $mod+d exec rofi -show run
+bindsym $mod+w exec rofi --run-list-command ". ~/.bashrc" -run-command "/bin/bash -i -c '{cmd}'" -display-run "uwu" -display-window "owo" -show window -display-ssh "^w^"
+bindsym $mod+d exec rofi --run-list-command ". ~/.bashrc" -run-command "/bin/bash -i -c '{cmd}'" -show run -display-run "uwu" -display-window "owo" -display-drun ">w<" -display-ssh "^w^"
+
 # JOJESSCONF: .config/rofi/config.rasi
 #   /usr/share/rofi/themes; ~/.local/share/rofi/themes
 #   rofi-theme-selector
-bindsym $mod+l exec i3lock -i /jaf/conf/bg/muffet1080.png -t
+#bindsym $mod+l exec i3lock -i /jaf/conf/bg/muffet1080.png -t
+bindsym $mod+l exec i3lock -i /jaf/conf/bg/9planets.png -t
 
 # change focus
 #bindsym $mod+j focus left
