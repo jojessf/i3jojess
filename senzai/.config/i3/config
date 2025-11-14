@@ -92,6 +92,8 @@ font pango:monospace 1b0
 # xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
 # screen before suspend. Use loginctl lock-session to lock your screen.
 exec --no-startup-id xset dpms 0 0 0 --nofork
+
+exec --no startup-id sleep 300 && xset dpms 0 0 0 
 exec --no-startup-id xss-lock --transfer-sleep-lock -- "i3lock -i /jaf/conf/bg/9planets.png" --nofork
 
 
