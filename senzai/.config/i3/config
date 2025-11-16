@@ -147,7 +147,7 @@ bindsym $mod+Shift+q kill
 # bindcode $mod+40 exec --no-startup-id i3-dmenu-desktop
 
 # UWU 
-bindsym $mod+w exec rofi --run-list-command ". ~/.bashrc" -run-command "/bin/bash -i -c '{cmd}'" -display-run "uwu" -display-window "owo" -show window -display-ssh "^w^"
+bindsym $mod+w exec rofi --run-list-command ". ~/.bashrc" -run-command "PATH=/jaf/gcom:${PATH}/bin/bash -i -c '{cmd}'" -display-run "uwu" -display-window "owo" -show window -display-ssh "^w^"
 bindsym $mod+d exec rofi --run-list-command ". ~/.bashrc" -run-command "/bin/bash -i -c '{cmd}'" -show run -display-run "uwu" -display-window "owo" -display-drun ">w<" -display-ssh "^w^"
 # JOJESSCONF: .config/rofi/config.rasi
 #   /usr/share/rofi/themes; ~/.local/share/rofi/themes
@@ -393,6 +393,8 @@ exec --no-startup-id i3-msg 'workspace $ws1; exec firefox; workspace $ws19; exec
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
-        #status_command i3status
-        status_command i3blocks
+   #status_command i3status
+   status_command i3blocks
+   #tray_output HDMI-0 # senzai / L
+   tray_output HDMI-1 # senzai / R
 }
