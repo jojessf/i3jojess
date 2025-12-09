@@ -6,7 +6,7 @@ my ($opt,@DARG) = Getopt::Lazier->new(@ARGV);
 
 # requires workspaces t1-t21 be defined alongside ws 1-20 in i3.config~
 
-$opt->{d}    //= "HDMI-1"; # target monitor
+$opt->{d}    //= "HDMI-0"; # target monitor
 $opt->{d}      =~ s/^(0)$/HDMI-0/i;  # presets for monitors
 $opt->{d}      =~ s/^(1|h|hdmi)$/HDMI-1/i;
 

@@ -44,9 +44,9 @@ exec --no-startup-id "picom --backend glx --corner-radius=5 --vsync"
 # office:
 #exec --no-startup-id xrandr --output DP-0 --pos 0x0 && xrandr --output HDMI-1 --right-of DP-0 --pos 1920x0 --primary && xrandr --output HDMI-0 --pos 3840x0
 # living room:
-exec --no-startup-id  sleep 1 && xrandr --output HDMI-1 --mode 1920x1080 --right-of HDMI-0 --primary
+exec --no-startup-id  sleep 1 && xrandr --output HDMI-0 --mode 1920x1080 --right-of HDMI-1 --primary
 #exec --no-startup-id  sleep 2 && xrandr --output HDMI-0 --mode 1920x1080 --left-of HDMI-1 
-exec --no-startup-id  sleep 2 && xrandr --output HDMI-0 --off
+#exec --no-startup-id  sleep 2 && xrandr --output HDMI-1 --off
 
 exec --no-startup-id  sleep 3 && ~/bin/pipewire.restart
 
@@ -92,8 +92,8 @@ font pango:monospace 1b0
 # xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
 # screen before suspend. Use loginctl lock-session to lock your screen.
 exec --no-startup-id xset dpms 0 0 0 --nofork
+exec --no-startup-id xset s off -dpms --nofork 
 
-exec --no startup-id sleep 300 && xset dpms 0 0 0 
 exec --no-startup-id xss-lock --transfer-sleep-lock -- "i3lock -i /jaf/conf/bg/9planets.png" --nofork
 
 
