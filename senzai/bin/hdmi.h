@@ -1,0 +1,30 @@
+#!/usr/bin/perl
+use Getopt::Lazier;
+my ($opt, @DARG) = Getopt::Lazier->new(@ARGV);
+my $hostname = `hostname`;
+chomp($hostname);
+$opt->{r} //= "1920x1080";
+$opt->{d} //= "HDMI-1" if $hostname =~ /senzai/;
+$opt->{do} //= "DP-2" if $hostname =~ /senzai/;
+$opt->{c} //= "xrandr --output ".$opt->{d} . " ";
+$opt->{pos} //= 2 if $hostname =~ /myou/;
+$opt->{pos} //= 2 if $hostname =~ /senzai/;
+$opt->{pos} //= "--right-of ".$opt->{do};
+$opt->{pos}   = "--right-of ".$opt->{do} if $opt->{pos}==1;
+$opt->{pos}   = "--left-of ".$opt->{do} if $opt->{pos}=~ /^(2|l|left)$/i;
+$opt->{c}  .= $opt->{pos} . " " if $opt->{pos};
+$opt->{c}  .= "--mode ".$opt->{r};
+$opt->{v} //= $ENV{DEBUG};
+$opt->{v} //= 0;
+$opt->{postcom} //= "xrandr --output " . $opt->{do} ." --primary";
+$opt->{postcom2} //= $ENV{HOME}."/bin/i3.rebg";
+$opt->{offcom}  //= "xrandr --output " . $opt->{d} . " --off";
+$opt->{off} //= 0;
+$opt->{c} = $opt->{offcom} if $opt->{off};
+
+$opt->{exec} //= 1;
+print $opt->{c} . "\n" if ! $opt->{exec};
+print $opt->{c} . "\n" if $opt->{v};
+system($opt->{c}) if $opt->{exec};
+system($opt->{postcom}) if $opt->{postcom} and $opt->{exec};
+system($opt->{postcom2}) if $opt->{postcom2} and $opt->{exec};
