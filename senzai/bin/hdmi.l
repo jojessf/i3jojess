@@ -6,7 +6,7 @@ chomp($hostname);
 $opt->{r} //= "1920x1080";
 $opt->{d} //= "HDMI-1-0" if $hostname =~ /myou/;
 $opt->{d} //= "HDMI-1" if $hostname =~ /yori/;
-$opt->{d} //= "HDMI-1" if $hostname =~ /senzai/;
+$opt->{d} //= "DP-2" if $hostname =~ /senzai/;
 $opt->{do} //= "DP-1-1" if $hostname =~ /myou/;
 $opt->{do} //= "eDP-1" if $hostname =~ /yori/i;
 $opt->{do} //= "HDMI-0" if $hostname =~ /senzai/;
