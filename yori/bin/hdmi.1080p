@@ -4,7 +4,7 @@ my ($opt, @DARG) = Getopt::Lazier->new(@ARGV);
 $opt->{r} //= "1920x1080";
 $opt->{d} //= "HDMI-1";
 $opt->{c} //= "xrandr --output ".$opt->{d} . " ";
-$opt->{pos} //= 3;
+$opt->{pos} //= 1;
 $opt->{pos} //= "--right-of eDP-1";
 $opt->{pos}   = "--right-of eDP-1" if $opt->{pos}==1;
 $opt->{pos}   = "--left-of eDP-1" if $opt->{pos}=~ /^(2|l|left)$/i;

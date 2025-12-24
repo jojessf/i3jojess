@@ -8,10 +8,10 @@ my ($opt,@DARG) = Getopt::Lazier->new(@ARGV);
 
 $opt->{d}    //= "eDP-1"; # target monitor
 $opt->{d}      =~ s/^(0|e|d|edp|edp-1)$/eDP-1/i;  # presets for monitors
-$opt->{d}      =~ s/^(1|h|hdmi)$/HDMI-1/i;
+$opt->{d}      =~ s/^(1)$/DP-2/i;
 
-$opt->{othermon} = "HDMI-1" if $opt->{d} =~ /eDP-1/;
-$opt->{othermon} = "eDP-1" if $opt->{d} =~ /HDMI-1/;
+$opt->{othermon} = "DP-2" if $opt->{d} =~ /eDP-1/;
+$opt->{othermon} = "eDP-1" if $opt->{d} =~ /DP-2/;
 
 $opt->{r}    //= "1-20";  # workspaces to move;  e.g.: -r=1,5,7-10 # defaults to 1 through 20
 $opt->{tempmode} //= 1;
