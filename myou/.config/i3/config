@@ -27,16 +27,16 @@ exec_always --no-startup-id xset dpms 0 0 7200 &
 exec_always --no-startup-id xset s off &
 
 # 20251222 - sabi ------------------------------------------------
-#### exec --no-startup-id sleep 1 && xrandr --output eDP-1 --off
-#### exec --no-startup-id sleep 3 && xrandr --output HDMI-1-0 --mode 1920x1080 --primary 
-#### exec --no-startup-id sleep 4 && xrandr --output DP-1-1 --mode 1920x1080 --right-of HDMI-1-0
-#### exec --no-startup-id sleep 5 && xrandr --output DP-2 --mode 1920x1080 --left-of HDMI-1-0
-#### exec --no-startup-id sleep 6 && xrandr --output HDMI-1-0 --primary 
+exec --no-startup-id sleep 1 && xrandr --output eDP-1 --off
+exec --no-startup-id sleep 3 && xrandr --output DP-1-1 --mode 1920x1080 --primary 
+exec --no-startup-id sleep 4 && xrandr --output HDMI-1-0 --mode 1920x1080 --right-of DP-1-1
+exec --no-startup-id sleep 5 && xrandr --output DP-2 --mode 1920x1080 --left-of DP-1-1
+exec --no-startup-id sleep 6 && xrandr --output DP-1-1 --primary 
 
 # 20251223 - pandyhome -----------------------------------------
 #exec --no-startup-id sleep 1 && xrandr --output eDP-1 --off
-exec --no-startup-id sleep 3 && xrandr --output HDMI-1-0  --mode 1920x1080 --left-of DP-2
-exec --no-startup-id sleep 4 && xrandr --output DP-2 --mode 1920x1080 --right-of HDMI-1-0 --primary
+#exec --no-startup-id sleep 3 && xrandr --output HDMI-1-0  --mode 1920x1080 --left-of DP-2
+#exec --no-startup-id sleep 4 && xrandr --output DP-2 --mode 1920x1080 --right-of HDMI-1-0 --primary
 
 #exec --no-startup-id feh --bg-scale /jaf/conf/bg/vertigoaway_-_das_epos_hohlraum.jpg
 
