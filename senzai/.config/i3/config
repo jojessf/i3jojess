@@ -44,7 +44,9 @@ exec --no-startup-id "picom --backend glx --corner-radius=5 --vsync"
 # office:
 #exec --no-startup-id xrandr --output DP-0 --pos 0x0 && xrandr --output HDMI-1 --right-of DP-0 --pos 1920x0 --primary && xrandr --output HDMI-0 --pos 3840x0
 # living room:
-exec --no-startup-id  sleep 1 && xrandr --output HDMI-0 --mode 1920x1080 --right-of DP-2 --primary && xrandr --output DP-2 --left-of HDMI-0 --mode 1920x1080 && xrandr --output HDMI-1 --left-of DP-2 --mode 1920x1080
+exec --no-startup-id  sleep 2 && xrandr --output HDMI-1 --mode 1920x1080 --right-of DP-3 --primary
+exec --no-startup-id  sleep 3 && xrandr --output DP-3 --left-of HDMI-1 --mode 1920x1080
+exec --no-startup-id  sleep 4 && xrandr --output HDMI-0 --right-of HDMI-1 --mode 1920x1080
 
 exec --no-startup-id  sleep 3 && ~/bin/pipewire.restart
 
