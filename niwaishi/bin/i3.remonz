@@ -1,5 +1,10 @@
 #!/bin/bash
-cat ~/.config/i3/config | egrep xrandr | egrep '^#' -v | sed -e 's/.*\&\&//g'
-cat ~/.config/i3/config | egrep xrandr | egrep '^#' -v | sed -e 's/.*\&\&//g' | bash
+monstr=$(cat ~/.config/i3/config | egrep '^\s*#' -v | egrep 'set..mondo' | sed -e 's/^set /export /g' | sed -e 's/\$//g' | xargs -n3 bash -c 'echo export "$1=$2"')
+$monstr
+   # echo $monstr # `export mondoc="DisplayPort-2"; export mondol="DisplayPort-1"; export mondor="HDMI-A-0";`
+
+echo "<(''<) L=$mondol C=$mondoc R=$mondor (>'')>"
+   cat ~/.config/i3/config | egrep xrandr | egrep '^\s*#' -v | sed -e 's/.*\&\&//g'
+   cat ~/.config/i3/config | egrep xrandr | egrep '^#' -v | sed -e 's/.*\&\&//g' | bash
 
 ~/bin/i3.rebg

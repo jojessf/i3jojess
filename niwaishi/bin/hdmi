@@ -1,0 +1,54 @@
+#!/usr/bin/perl
+use Data::Dumper;
+use Getopt::Lazier;
+my ($opt, @DARG) = Getopt::Lazier->new(@ARGV);
+my $hostname = `hostname`;
+chomp($hostname);
+
+$opt->{primary} //= 1;
+$opt->{hostname} //= $hostname;
+$opt->{res} //= "1920x1080";
+
+# if ( $hostname =~ /niwa/ ) {
+#    $opt->{mondol} //= "DisplayPort-1"; # KYY, DP2HDMI
+#    $opt->{mondoc} //= "DisplayPort-2"; # ASUS
+#    $opt->{mondor} //= "HDMI-A-0";      # SAMSUNG
+# }
+
+open IF, "<".$ENV{HOME}."/.config/i3/config";
+LI: while (<IF>) {
+  next LI if m/^\s*#/;
+  next LI if ! m/set..mondo/;
+  s/^set..//;
+  print $_;
+  my @yarg = split(" ", $_);
+  $opt->{$yarg[0]} = $yarg[1];
+}
+close IF;
+
+$opt->{dev} //= $opt->{mondol} if $opt->{l};
+$opt->{dev} //= $opt->{mondor} if $opt->{r};
+$opt->{dev} //= $opt->{mondoc} if $opt->{c};
+$opt->{dev} //= $opt->{mondoc};
+
+$opt->{com} //= "xrandr --output ".$opt->{dev} . " ";
+$opt->{pos} //= 2 if $hostname =~ /myou/;
+$opt->{pos}   = "--right-of ".$opt->{mondol} if $opt->{pos}=~ /^(1|r|right)$/i;
+$opt->{pos}   = "--left-of ".$opt->{mondor} if $opt->{pos}=~ /^(2|l|left)$/i;
+$opt->{com}  .= $opt->{pos} . " " if $opt->{pos};
+$opt->{com}  .= "--mode ".$opt->{res};
+$opt->{v} //= $ENV{DEBUG};
+$opt->{v} //= 0;
+$opt->{postcom}    = "xrandr --output " . $opt->{dev} ." --primary" if $opt->{primary};
+$opt->{postcom2} //= $ENV{HOME}."/bin/i3.rebg";
+$opt->{offcom}  //= "xrandr --output " . $opt->{dev} . " --off";
+$opt->{off} //= 0;
+$opt->{com} = $opt->{offcom} if $opt->{off};
+
+$opt->{exec} //= 1;
+print Dumper([ $opt ]) . "\n" if $opt->{v} and $opt->{v} >= 1;
+print $opt->{com} . "\n" if ! $opt->{exec};
+print $opt->{com} . "\n" if $opt->{v};
+system($opt->{com}) if $opt->{exec};
+system($opt->{postcom}) if $opt->{postcom} and $opt->{exec};
+system($opt->{postcom2}) if $opt->{postcom2} and $opt->{exec};

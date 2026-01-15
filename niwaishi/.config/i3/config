@@ -18,27 +18,29 @@ set $mod2 Mod2
 
 set $termuwu xfce4-terminal
 set $bguwu /jaf/conf/bg/vertigoaway_-_das_epos_hohlraum.jpg
-#set $bguwu /jaf/conf/bg/Hypnagogia-HighRes_1080p.jpg
-# compositor, for app transparency and shit
+set $bgowo /jaf/conf/bg/Hypnagogia-HighRes_1080p.jpg
+
+# picom compositor, for app transparency and shit - no tearing for me tho, hooray
 exec --no-startup-id "picom --backend glx --vsync --corner-radius 5"
 
 # eepy
 exec_always --no-startup-id xset dpms 0 0 7200 &
 exec_always --no-startup-id xset s off &
 
-# 20251222 - sabi ------------------------------------------------
-#### exec --no-startup-id sleep 1 && xrandr --output eDP-1 --off
-#### exec --no-startup-id sleep 3 && xrandr --output HDMI-1-0 --mode 1920x1080 --primary 
-#### exec --no-startup-id sleep 4 && xrandr --output DP-1-1 --mode 1920x1080 --right-of HDMI-1-0
-#### exec --no-startup-id sleep 5 && xrandr --output DP-2 --mode 1920x1080 --left-of HDMI-1-0
-#### exec --no-startup-id sleep 6 && xrandr --output HDMI-1-0 --primary 
+# 20260107 - pandyhome => sabimajo
+#exec --no-startup-id sleep 2 && xrandr --output HDMI-A-0  --mode 1920x1080 --right-of DisplayPort-1
+#exec --no-startup-id sleep 3 && xrandr --output DisplayPort-2 --mode 1920x1080 --left-of HDMI-A-0 --primary
+#exec --no-startup-id sleep 4 && xrandr --output DisplayPort-1 --mode 1920x1080 --left-of DisplayPort-2
 
-# 20251223 - pandyhome -----------------------------------------
-#exec --no-startup-id sleep 1 && xrandr --output eDP-1 --off
-exec --no-startup-id sleep 3 && xrandr --output HDMI-A-0  --mode 1920x1080 --right-of HDMI-A-1-1
-exec --no-startup-id sleep 4 && xrandr --output HDMI-A-1-1 --mode 1920x1080 --left-of HDMI-A-0 --primary
+# 20260115 - sabimajo ------------------------------------------
+# mondo vars for i3.config xrandr calls ... (~/bin/hdmi and ~/bin/i3.remonz) reference these from this conf!  :3
+set $mondoc DisplayPort-2
+set $mondol DisplayPort-1
+set $mondor HDMI-A-0
 
-#exec --no-startup-id feh --bg-scale /jaf/conf/bg/vertigoaway_-_das_epos_hohlraum.jpg
+exec --no-startup-id sleep 2 && xrandr --output $mondor  --mode 1920x1080 --right-of $mondoc
+exec --no-startup-id sleep 3 && xrandr --output $mondoc --mode 1920x1080 --left-of $mondor --primary
+exec --no-startup-id sleep 4 && xrandr --output $mondol --mode 1920x1080 --left-of $mondoc
 
 exec --no-startup-id sleep 7 && feh --bg-scale $bguwu
 
