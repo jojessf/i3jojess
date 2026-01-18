@@ -4,34 +4,40 @@
 use Getopt::Lazier;
 my ($opt,@DARG) = Getopt::Lazier->new(@ARGV);
 
-# requires workspaces t1-t21 be defined alongside ws 1-20 in i3.config~
+open IF, "<".$ENV{HOME}."/.config/i3/config";
+LI: while (<IF>) {
+  next LI if m/^\s*#/;
+  next LI if ! m/set..mondo/;
+  s/^set..//;
+  my @yarg = split(" ", $_);
+  $opt->{$yarg[0]} = $yarg[1];
+}
+close IF;
 
-$opt->{d}    //= "HDMI-1"; # target monitor
+$opt->{dev} //= $opt->{mondol} if $opt->{l};
+$opt->{dev} //= $opt->{mondor} if $opt->{r};
+$opt->{dev} //= $opt->{mondoc} if $opt->{c};
+$opt->{dev} //= $opt->{mondoc};
 
-my ($dol, $doc, $dor) = ("DP-2", "HDMI-1-0", "DP-1-1");
 
-$opt->{d}      =~ s/^(0|l)$/$dol/i;  # presets for monitors
-$opt->{d}      =~ s/^(1|c)$/$doc/i;
-$opt->{d}      =~ s/^(2|r)$/$dor/i;
+$opt->{othermon} = $dor if $opt->{dev} !~ /$dor/;
+$opt->{othermon} = $dol if $opt->{dev} =~ /$dor/;
 
-$opt->{othermon} = $dor if $opt->{d} !~ /$dor/;
-$opt->{othermon} = $dol if $opt->{d} =~ /$dor/;
-
-$opt->{r}    //= "1-20";  # workspaces to move;  e.g.: -r=1,5,7-10 # defaults to 1 through 20
-$opt->{tempmode} //= 1;
+$opt->{w}    //= "1-20";  # workspaces to move;  e.g.: -r=1,5,7-10 # defaults to 1 through 20
+$opt->{tempmode} //= 3;
 $opt->{exec} //= 1;
 $opt->{sleepyexec} //= 100;
 $opt->{sleepyexec}   = $opt->{sleepyexec} / 1000;
 $opt->{v}    //= 0;
 
 $opt->{wcom} //= "i3-msg \"workspace WID\"";
-$opt->{mcom} //= "i3-msg \"move workspace to output ".$opt->{d}."\"";
+$opt->{mcom} //= "i3-msg \"move workspace to output ".$opt->{dev}."\"";
 $opt->{rcom} //= "i3-msg \"rename workspace WID to tWID\"";
 $opt->{rrcom} //= "i3-msg \"rename workspace tWID to WID\"";
 
 my @workspaces = ();
 
-my @ws0 = split(",", $opt->{r});
+my @ws0 = split(",", $opt->{w});
 foreach my $ws1 (@ws0) {
    my @range = split("-", $ws1);
    $range[1] //= $range[0];
@@ -39,6 +45,15 @@ foreach my $ws1 (@ws0) {
       push(@workspaces, $i);
    }
 }
+
+if ( $opt->{tall} ) {
+   allmontmp();
+   exit;
+}
+
+
+allmontmp() if $opt->{tempmode} && $opt->{tempmode} >= 2;
+
 foreach my $ws (@workspaces) {
    print "[SELECT] ws# " . $ws . "\n" if $opt->{v} and $opt->{v} > 1;
    
@@ -69,15 +84,6 @@ foreach my $ws (@workspaces) {
 }
 
 if ( $opt->{tempmode} ) {
-   # # old monitor t21
-   # my $rcom = $opt->{rcom};
-   # $rcom =~ s/tWID/t21/g;
-   # $rcom =~ s/WID/1/g;
-   # print "[t21 RCOM] $rcom\n" if $opt->{v};
-   # my $trcom = `$rcom` if $opt->{exec};
-   # select(undef,undef,undef,$opt->{sleepyexec}) if $opt->{sleepyexec};
-   # print $trcom if $opt->{v} and $opt->{v} > 1;
-
    foreach my $ws (@workspaces) {
       # (select)  workspace tWWW
       my $wcom = $opt->{wcom};
@@ -93,5 +99,36 @@ if ( $opt->{tempmode} ) {
       print "[RRCOM] $rrcom\n" if $opt->{v};
       print $trrcom if $opt->{v} and $opt->{v} > 1;
    }
+   allmontmp() if $opt->{tempmode} >= 3;
 }
+
+
+sub docom {
+   my $docom = shift;
+   if ( $docom =~ s/^noti3:?// ) {
+      system($docom);
+      return;
+   } else {
+      $docom = "i3-msg \"$docom\"";
+      print "[DOCOM] $docom\n" if $opt->{v};
+      my $dwcom = `$docom` if $opt->{exec};
+      select(undef,undef,undef,$opt->{sleepyexec}) if $opt->{sleepyexec};
+      print $dwcom if $opt->{v} and $opt->{v} > 1;
+      return;
+   } 
+}
+
+sub allmontmp {
+   EACHMON: foreach my $mna (grep /mondo/, sort keys %{$opt}) {
+      my $mon = $opt->{$mna};
+      next EACHMON if ! $mon; 
+      my $sfx = substr($mna, -1);
+      docom("workspace z$sfx");
+      docom("noti3:xterm &") if ! $opt->{allmontmpq};
+      docom("move workspace to output $mon");
+   }
+   $opt->{allmontmpq}++;
+   system("killall -15 xterm") if $opt->{allmontmpq} > 1;
+}
+
 
