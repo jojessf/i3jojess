@@ -27,13 +27,8 @@ exec --no-startup-id "picom --backend glx --vsync --corner-radius 5"
 exec_always --no-startup-id xset dpms 0 0 7200 &
 exec_always --no-startup-id xset s off &
 
-# 20260107 - pandyhome => sabimajo
-#exec --no-startup-id sleep 2 && xrandr --output HDMI-A-0  --mode 1920x1080 --right-of DisplayPort-1
-#exec --no-startup-id sleep 3 && xrandr --output DisplayPort-2 --mode 1920x1080 --left-of HDMI-A-0 --primary
-#exec --no-startup-id sleep 4 && xrandr --output DisplayPort-1 --mode 1920x1080 --left-of DisplayPort-2
-
 # 20260115 - sabimajo ------------------------------------------
-# mondo vars for i3.config xrandr calls ... (~/bin/hdmi and ~/bin/i3.remonz) reference these from this conf!  :3
+# mondo vars for i3.config xrandr calls ... (~/bin/hdmi ~/bin/i3.remonz ~/bin/i3mover) reference these from this conf!  :3
 set $mondoc DisplayPort-2
 set $mondol DisplayPort-1
 set $mondor HDMI-A-0
