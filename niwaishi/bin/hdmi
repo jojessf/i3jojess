@@ -20,7 +20,6 @@ LI: while (<IF>) {
   next LI if m/^\s*#/;
   next LI if ! m/set..mondo/;
   s/^set..//;
-  print $_;
   my @yarg = split(" ", $_);
   $opt->{$yarg[0]} = $yarg[1];
 }
