@@ -24,7 +24,9 @@ $opt->{othermon} = $dor if $opt->{dev} !~ /$dor/;
 $opt->{othermon} = $dol if $opt->{dev} =~ /$dor/;
 
 $opt->{w}    //= "1-20";  # workspaces to move;  e.g.: -r=1,5,7-10 # defaults to 1 through 20
-$opt->{tempmode} //= 3;
+$opt->{tempmode} //= 4;
+$opt->{tempmode} =~ s/4/3/ if $opt->{w} eq '1-20';
+$opt->{tempmode} =~ s/4/1/ if $opt->{w} ne '1-20';
 $opt->{exec} //= 1;
 $opt->{sleepyexec} //= 100;
 $opt->{sleepyexec}   = $opt->{sleepyexec} / 1000;
