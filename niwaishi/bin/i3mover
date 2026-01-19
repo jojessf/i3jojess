@@ -19,14 +19,7 @@ if ( $opt->{h} ) { print $USAGE; exit; }
 
 $opt->{w}    //= "1-20";  # workspaces to move;  e.g.: -r=1,5,7-10 # defaults to 1 through 20
 $opt->{exec} //= 1; # actually do stuff uWu 
-$opt->{sleepyexec} //= 10; # ms between ops 
-$opt->{sleepyexec}  /= 1000;
-
-$opt->{wcom} //=  "workspace WID";
-$opt->{mcom} //=  "move workspace to output ".$opt->{dev}."";
-$opt->{rcom} //=  "rename workspace WID to tWID";
-$opt->{rrcom} //= "rename workspace tWID to WID";
-
+$opt->{sleepyexec} //= .01; # 10 ms between ops 
 
 # --------------------------------------------------------------------------- #
 
