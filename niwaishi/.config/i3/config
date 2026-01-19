@@ -32,6 +32,7 @@ exec_always --no-startup-id xset s off &
 set $mondoc DisplayPort-2
 set $mondol DisplayPort-1
 set $mondor HDMI-A-0
+set $mondod DisplayPort-2
 
 exec --no-startup-id sleep 2 && xrandr --output $mondor  --mode 1920x1080 --right-of $mondoc
 exec --no-startup-id sleep 3 && xrandr --output $mondoc --mode 1920x1080 --left-of $mondor --primary
