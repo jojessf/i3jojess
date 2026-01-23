@@ -104,6 +104,6 @@ sub darguser { # lazier - `r` ~ `-r=1` ~ `-r`;  `w5` ~ `-w=5`
       $opt->{v}    //= 0; # verbose
    foreach my $d (@darg) {
       if ( $d =~ /^([w])(\d{1,2})$/ ) { $opt->{$1} = $2 }
-      if ( $d =~ /^([lcr])$/        ) { $opt->{$1} =  1 }
+      if ( $d =~ /^([lcrz])$/        ) { $opt->{$1} =  1 }
    }
 }

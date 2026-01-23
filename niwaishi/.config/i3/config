@@ -8,6 +8,7 @@
 # * i3lock conf
 #       # sudo systemctl mask sleep.target suspend.target hibernate.target hybrid-sleep.target
 #       # sudo apt install i3 maim xclip blueman playerctl feh rofi xfce4-terminal pavucontrol ibus picom
+#       # update-alternatives --config x-terminal-emulator
 # * ~/.config/rofi/config.rasi
 # * ~/.i3status.conf
 # * ~/.config/i3/*
@@ -29,10 +30,15 @@ exec_always --no-startup-id xset s off &
 
 # 20260115 - sabimajo ------------------------------------------
 # mondo vars for i3.config xrandr calls ... (~/bin/hdmi ~/bin/i3.remonz ~/bin/i3mover) reference these from this conf!  :3
+# lcr ~ left/center/right
 set $mondoc DisplayPort-2
 set $mondol DisplayPort-1
 set $mondor HDMI-A-0
+# special e.g.: HDMI2Analog 4 CRT
+set $mondoz HDMI-A-1-1
+# default
 set $mondod DisplayPort-2
+
 
 exec --no-startup-id sleep 2 && xrandr --output $mondor  --mode 1920x1080 --right-of $mondoc
 exec --no-startup-id sleep 3 && xrandr --output $mondoc --mode 1920x1080 --left-of $mondor --primary
