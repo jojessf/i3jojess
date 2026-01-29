@@ -2,19 +2,31 @@
 use Data::Dumper;
 use Getopt::Lazier;
 my ($opt, @DARG) = Getopt::Lazier->new(@ARGV);
+sub darguser { # lazier - `r` ~ `-r=1` ~ `-r`;  `w5` ~ `-w=5`
+   my @darg = @{+shift};
+   my $opt = shift;
+      $opt->{v}    //= 0; # verbose
+   foreach my $d (@darg) {
+      if ( $d =~ /^([lcrz])$/        ) { $opt->{$1} =  1 } # {-}l,c,r
+      if ( $d =~ /^(off|only)$/        ) { $opt->{$1} =  1 } # {-}off
+   }
+}
 darguser(\@DARG,$opt);
 my $hostname = `hostname`;
 chomp($hostname);
 
-$opt->{primary} //= 1;
+$opt->{primary} //= 1 if $opt->{c};
 $opt->{hostname} //= $hostname;
 $opt->{res} //= "1920x1080";
 
-# if ( $hostname =~ /niwa/ ) {
-#    $opt->{mondol} //= "DisplayPort-1"; # KYY, DP2HDMI
-#    $opt->{mondoc} //= "DisplayPort-2"; # ASUS
-#    $opt->{mondor} //= "HDMI-A-0";      # SAMSUNG
-# }
+if ( $opt->{only} ) {
+   foreach my $m ('l', 'c', 'r') {
+      unshift(@coms, "$0 $m off") if ! $opt->{$m};
+      push(@coms, "$0 $m") if $opt->{$m};
+   }
+   foreach my $c (@coms) {system($c)}
+   exit;
+}
 
 open IF, "<".$ENV{HOME}."/.config/i3/config";
 LI: while (<IF>) {
@@ -59,13 +71,4 @@ system($opt->{postcom}) if $opt->{postcom} and $opt->{exec};
 system($opt->{postcom2}) if $opt->{postcom2} and $opt->{exec};
 
 
-sub darguser { # lazier - `r` ~ `-r=1` ~ `-r`;  `w5` ~ `-w=5`
-   my @darg = @{+shift};
-   my $opt = shift;
-      $opt->{v}    //= 0; # verbose
-   foreach my $d (@darg) {
-      if ( $d =~ /^([lcrz])$/        ) { $opt->{$1} =  1 } # {-}l,c,r
-      if ( $d =~ /^(off)$/        ) { $opt->{$1} =  1 } # {-}off
-   }
-}
 
