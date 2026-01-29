@@ -20,7 +20,7 @@ $opt->{hostname} //= $hostname;
 $opt->{res} //= "1920x1080";
 
 if ( $opt->{only} ) {
-   foreach my $m ('l', 'c', 'r') {
+   foreach my $m ('l', 'c', 'r', 'z') {
       unshift(@coms, "$0 $m off") if ! $opt->{$m};
       push(@coms, "$0 $m") if $opt->{$m};
    }
