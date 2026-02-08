@@ -8,6 +8,7 @@
 # * i3lock conf
 #       # sudo systemctl mask sleep.target suspend.target hibernate.target hybrid-sleep.target
 #       # sudo apt install i3 maim xclip blueman playerctl feh rofi xfce4-terminal pavucontrol ibus picom
+#       # update-alternatives --config x-terminal-emulator
 # * ~/.config/rofi/config.rasi
 # * ~/.i3status.conf
 # * ~/.config/i3/*
@@ -18,27 +19,30 @@ set $mod2 Mod2
 
 set $termuwu xfce4-terminal
 set $bguwu /jaf/conf/bg/vertigoaway_-_das_epos_hohlraum.jpg
-#set $bguwu /jaf/conf/bg/Hypnagogia-HighRes_1080p.jpg
-# compositor, for app transparency and shit
+set $bgowo /jaf/conf/bg/Hypnagogia-HighRes_1080p.jpg
+
+# picom compositor, for app transparency and shit - no tearing for me tho, hooray
 exec --no-startup-id "picom --backend glx --vsync --corner-radius 5"
 
 # eepy
 exec_always --no-startup-id xset dpms 0 0 7200 &
 exec_always --no-startup-id xset s off &
 
-# 20251222 - sabi ------------------------------------------------
-exec --no-startup-id sleep 1 && xrandr --output eDP-1 --off
-exec --no-startup-id sleep 3 && xrandr --output DP-1-1 --mode 1920x1080 --primary 
-exec --no-startup-id sleep 4 && xrandr --output HDMI-1-0 --mode 1920x1080 --right-of DP-1-1
-exec --no-startup-id sleep 5 && xrandr --output DP-2 --mode 1920x1080 --left-of DP-1-1
-exec --no-startup-id sleep 6 && xrandr --output DP-1-1 --primary 
+# 20260115 - sabimajo ------------------------------------------
+# mondo vars for i3.config xrandr calls ... (~/bin/hdmi ~/bin/i3.remonz ~/bin/i3mover) reference these from this conf!  :3
+# lcr ~ left/center/right
+#set $mondoc DisplayPort-2
+set $mondol HDMI-1-0
+set $mondoc eDP-1
+# special e.g.: HDMI2Analog 4 CRT
+#set $mondoz HDMI-A-1-1
+# default
+set $mondod eDP-1
 
-# 20251223 - pandyhome -----------------------------------------
-#exec --no-startup-id sleep 1 && xrandr --output eDP-1 --off
-#exec --no-startup-id sleep 3 && xrandr --output HDMI-1-0  --mode 1920x1080 --left-of DP-2
-#exec --no-startup-id sleep 4 && xrandr --output DP-2 --mode 1920x1080 --right-of HDMI-1-0 --primary
 
-#exec --no-startup-id feh --bg-scale /jaf/conf/bg/vertigoaway_-_das_epos_hohlraum.jpg
+#exec --no-startup-id sleep 2 && xrandr --output $mondor  --mode 1920x1080 --right-of $mondoc
+exec --no-startup-id sleep 3 && xrandr --output $mondoc --mode 1920x1080 --left-of $mondor --primary
+exec --no-startup-id sleep 4 && xrandr --output $mondol --mode 1920x1080 --left-of $mondoc
 
 exec --no-startup-id sleep 7 && feh --bg-scale $bguwu
 
@@ -84,6 +88,10 @@ exec --no-startup-id sleep 5 && /home/jojess/bin/i3.rebg
 set $refresh_i3status killall -SIGUSR1 i3status
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status
 bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10% && $refresh_i3status
+bindsym $mod1+XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +1% && $refresh_i3status
+bindsym $mod1+XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -1% && $refresh_i3status
+
+
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
 bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
 
@@ -291,9 +299,9 @@ bindsym $mod+r mode "resize"
 # bindsym Print exec scapscap
 # maim -s | xclip -selection clipboard -t image/png; xclip -selection clipboard -o > ~/Pictures/maim.`date "+%Y%m%d.%H%M%S.%N.%s"`.png
 
-bindsym $mod+Shift+s exec ~/.config/i3/scapscap
-bindsym $mod+Print exec ~/.config/i3/scapscap
-bindsym Print exec ~/.config/i3/scap 
+bindsym $mod+Shift+s exec ~/bin/scapscap
+bindsym $mod+Print exec ~/bin/scapscap
+bindsym Print exec ~/bin/scap 
 
 bindsym XF86MonBrightnessUp exec --no-startup-id brightnessctl set 5%+
 bindsym XF86MonBrightnessDown exec --no-startup-id brightnessctl set 5%-
