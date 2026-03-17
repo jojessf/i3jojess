@@ -22,7 +22,8 @@ set $bguwu /jaf/conf/bg/vertigoaway_-_das_epos_hohlraum.jpg
 set $bgowo /jaf/conf/bg/Hypnagogia-HighRes_1080p.jpg
 
 # picom compositor, for app transparency and shit - no tearing for me tho, hooray
-exec --no-startup-id "picom --backend glx --vsync --corner-radius 5"
+# exec --no-startup-id "picom --backend glx --vsync --corner-radius 5"
+exec --no-startup-id "picom --backend xrender --vsync --corner-radius 5"
 
 # eepy
 exec_always --no-startup-id xset dpms 0 0 7200 &
@@ -310,7 +311,7 @@ bindsym XF86MonBrightnessDown exec --no-startup-id brightnessctl set 5%-
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
-        #status_command i3status
-        status_command i3blocks
+        status_command i3status
+        #status_command i3blocks
 }
 
