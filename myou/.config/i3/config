@@ -25,14 +25,12 @@ set $bgowo /jaf/conf/bg/Hypnagogia-HighRes_1080p.jpg
 exec --no-startup-id "picom --backend glx --vsync --corner-radius 5"
 
 # eepy
-exec_always --no-startup-id xset dpms 0 0 7200 &
-exec_always --no-startup-id xset s off &
 
 # 20260115 - sabimajo ------------------------------------------
 # mondo vars for i3.config xrandr calls ... (~/bin/hdmi ~/bin/i3.remonz ~/bin/i3mover) reference these from this conf!  :3
 # lcr ~ left/center/right
-#set $mondoc DisplayPort-2
-set $mondol HDMI-1-0
+#set $mondol DisplayPort-2
+set $mondor HDMI-1-0
 set $mondoc eDP-1
 # special e.g.: HDMI2Analog 4 CRT
 #set $mondoz HDMI-A-1-1
@@ -73,6 +71,11 @@ gaps outer 3
 font pango:monospace 12
 
 exec --no-startup-id dex --autostart --environment i3
+
+exec_always --no-startup-id xset s off -dpms &
+exec_always --no-startup-id xset dpms 0 300 0 &
+exec_always --no-startup-id xss-lock --transfer-sleep-lock -- "i3lock -i /jaf/conf/bg/vertigoaway_-_das_epos_hohlraum.jpg -t" --nofork
+
 
 exec --no-startup-id nm-applet
 exec --no-startup-id blueman-applet
@@ -310,7 +313,7 @@ bindsym XF86MonBrightnessDown exec --no-startup-id brightnessctl set 5%-
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
-        #status_command i3status
-        status_command i3blocks
+        status_command i3status
+        #status_command i3blocks
 }
 
