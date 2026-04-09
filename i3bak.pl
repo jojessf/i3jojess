@@ -10,7 +10,7 @@ my ($opt, @DARG) = Getopt::Lazier->new(@ARGV);
 die "mount stuff" if ( ! -d "/nu/inf" );
 
 $opt->{host} //= hostname;
-$opt->{bakroot} //= "/nu/inf/i3/i3jojess/".$opt->{host}."/";
+$opt->{bakroot} //= "/nu/inf/i3/".$opt->{host}."/";
 mkdir ( $opt->{bakroot} ) if ! -d $opt->{bakroot};
 mkdir ( $opt->{bakroot}."bin" ) if ! -d $opt->{bakroot}."bin";
 $opt->{indir} //= $ENV{HOME};
