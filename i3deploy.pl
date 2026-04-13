@@ -5,7 +5,7 @@ use Getopt::Lazier;
 my ($opt, @DARG) = Getopt::Lazier->new(@ARGV);
 
 $opt->{host} //= hostname;
-$opt->{bakroot} //= "/nu/inf/i3/i3jojess/".$opt->{host}."/";
+$opt->{bakroot} //= "/nu/inf/i3/".$opt->{host}."/";
 
 chdir($ENV{HOME}) or die;
 

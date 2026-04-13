@@ -1,6 +1,7 @@
 #!/bin/bash
 systemctl --user restart pipewire-pulse.service
 systemctl --user restart pipewire-pulse.socket
+sleep 1
 systemctl --user restart pipewire.service
 systemctl --user restart pipewire.socket
-
+#systemctl --user restart wireplumber
