@@ -38,13 +38,29 @@ exec $termowo
 
 # NEW 
 #exec --no-startup-id xrandr --output DP-0 -- pos 0x0 
-#exec --no-startup-id xrandr --output HDMI-1 --right-of eDP-1 --pos 1920x0 --primary --scale 1.3x1.1
 # exec --no-startup-id xrandr --output HDMI-0 --pos 3840x0
+#exec --no-startup-id xrandr --output HDMI-1 --right-of eDP-1 --pos 1920x0 --primary --scale 1.3x1.1
 
 #exec --no-startup-id xrandr --output DP-0 -- pos 0x0 && xrandr --output HDMI-1 --right-of DP-0 --pos 1920x0 --primary && xrandr --output HDMI-0 --pos 3840x0
 
-exec --no-startup-id xrandr --output eDP-1 --mode 1920x1200 --left-of DP-2 --pos 0x0 && xrandr --output DP-2 --right-of eDP-1 --mode 1920x1080 --pos 1920x0 --primary
-exec --no-startup-id xrandr --output eDP-1 --mode 1920x1200 --left-of DP-4 --pos 0x0 && xrandr --output DP-4 --right-of eDP-1 --mode 1920x1080 --pos 1920x0 --primary
+
+#exec --no-startup-id xrandr --output eDP-1 --mode 1920x1200 --left-of DP-2 --pos 0x0 && xrandr --output DP-2 --right-of eDP-1 --mode 1920x1080 --pos 1920x0 --primary
+#exec --no-startup-id xrandr --output eDP-1 --mode 1920x1200 --left-of DP-4 --pos 0x0 && xrandr --output DP-4 --right-of eDP-1 --mode 1920x1080 --pos 1920x0 --primary
+#exec --no-startup-id xrandr --output HDMI-1 --right-of eDP-1 --pos 1920x0
+#exec --no-startup-id xrandr --output eDP-1 --mode 1920x1200 --pos 0x0 --primary
+
+set $mondoc DP-2
+set $mondor HDMI-1
+set $mondol eDP-1 
+#set $mondoz NOPE
+
+set $resmonr 1920x1080
+set $resmonc 1920x1080
+set $resmonl 1920x1200
+
+exec --no-startup-id sleep 2 && xrandr --output $mondor --mode 1920x1080 --right-of $mondoc
+exec --no-startup-id sleep 3 && xrandr --output $mondoc --mode 1920x1080 --left-of $mondor
+exec --no-startup-id sleep 4 && xrandr --output $mondol --mode 1920x1200 --left-of $mondoc --primary
 
 
 #  exec --no-startup-id nitrogen --set-zoom-fill vertigoaway_-_das_epos_hohlraum.jpg
@@ -140,8 +156,11 @@ bindsym $mod+Shift+q kill
 # bindcode $mod+40 exec --no-startup-id i3-dmenu-desktop
 
 # UWU 
-bindsym $mod+d exec rofi -show run
-bindsym $mod+w exec rofi -show window
+#bindsym $mod+d exec rofi -show run
+#bindsym $mod+w exec rofi -show window
+bindsym $mod+w exec rofi --run-list-command ". ~/.bashrc" -run-command "/bin/bash -i -c '{cmd}'" -display-run "uwu" -display-window "owo" -show window -display-ssh "^w^"
+bindsym $mod+d exec rofi --run-list-command ". ~/.bashrc" -run-command "/bin/bash -i -c '{cmd}'" -show run -display-run "uwu" -display-window "owo" -display-drun ">w<" -display-ssh "^w^"
+
 # JOJESSCONF: .config/rofi/config.rasi
 #   /usr/share/rofi/themes; ~/.local/share/rofi/themes
 #   rofi-theme-selector

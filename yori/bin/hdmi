@@ -1,0 +1,74 @@
+#!/usr/bin/perl
+use Data::Dumper;
+use Getopt::Lazier;
+my ($opt, @DARG) = Getopt::Lazier->new(@ARGV);
+sub darguser { # lazier - `r` ~ `-r=1` ~ `-r`;  `w5` ~ `-w=5`
+   my @darg = @{+shift};
+   my $opt = shift;
+      $opt->{v}    //= 0; # verbose
+   foreach my $d (@darg) {
+      if ( $d =~ /^([lcrz])$/        ) { $opt->{$1} =  1 } # {-}l,c,r
+      if ( $d =~ /^(off|only)$/        ) { $opt->{$1} =  1 } # {-}off
+   }
+}
+darguser(\@DARG,$opt);
+my $hostname = `hostname`;
+chomp($hostname);
+
+$opt->{primary} //= 1 if $opt->{c};
+$opt->{hostname} //= $hostname;
+$opt->{res} //= "1920x1080";
+
+if ( $opt->{only} ) {
+   foreach my $m ('l', 'c', 'r', 'z') {
+      unshift(@coms, "$0 $m off") if ! $opt->{$m};
+      push(@coms, "$0 $m") if $opt->{$m};
+   }
+   foreach my $c (@coms) {system($c)}
+   exit;
+}
+
+open IF, "<".$ENV{HOME}."/.config/i3/config";
+LI: while (<IF>) {
+  next LI if m/^\s*#/;
+  next LI if ! m/set..mondo/;
+  s/^set..//;
+  my @yarg = split(" ", $_);
+  $opt->{$yarg[0]} = $yarg[1];
+}
+close IF;
+
+$opt->{res}   = "1280x720" if $opt->{z} or $opt->{pos} =~ /^(z|crt)/;
+
+$opt->{dev} //= $opt->{mondoz} if $opt->{z};
+$opt->{dev} //= $opt->{mondol} if $opt->{l};
+$opt->{dev} //= $opt->{mondor} if $opt->{r};
+$opt->{dev} //= $opt->{mondoc} if $opt->{c};
+$opt->{dev} //= $opt->{mondod}; # fall back to default
+
+$opt->{com} //= "xrandr --output ".$opt->{dev} . " ";
+$opt->{pos} //= 2 if $hostname =~ /myou/;
+$opt->{pos} = "z" if $opt->{z};
+$opt->{pos}   = "--right-of ".$opt->{mondoc} if $opt->{pos}=~ /^(1|r|right)$/i;
+$opt->{pos}   = "--left-of ".$opt->{mondoc} if $opt->{pos}=~ /^(2|l|left)$/i;
+$opt->{pos}   = "--left-of ".$opt->{mondol} if $opt->{pos}=~ /^(z|crt)$/i;
+$opt->{com}  .= $opt->{pos} . " " if $opt->{pos};
+$opt->{com}  .= "--mode ".$opt->{res};
+$opt->{v} //= $ENV{DEBUG};
+$opt->{v} //= 0;
+$opt->{postcom}    = "xrandr --output " . $opt->{dev} ." --primary" if $opt->{primary};
+$opt->{postcom2} //= $ENV{HOME}."/bin/i3.rebg";
+$opt->{offcom}  //= "xrandr --output " . $opt->{dev} . " --off";
+$opt->{off} //= 0;
+$opt->{com} = $opt->{offcom} if $opt->{off};
+
+$opt->{exec} //= 1;
+print Dumper([ $opt ]) . "\n" if $opt->{v} and $opt->{v} >= 1;
+print $opt->{com} . "\n" if ! $opt->{exec};
+print $opt->{com} . "\n" if $opt->{v};
+system($opt->{com}) if $opt->{exec};
+system($opt->{postcom}) if $opt->{postcom} and $opt->{exec};
+system($opt->{postcom2}) if $opt->{postcom2} and $opt->{exec};
+
+
+
